@@ -17,8 +17,7 @@
         "README*"
     ],
     "scripts": {
-        "build": "rollup -c ./rollup.config.ts --configPlugin typescript",
-        "release": "release-it"
+        "build": "rollup -c ./rollup.config.ts --configPlugin typescript"
     },
     "repository": {
         "type": "git",
@@ -30,9 +29,6 @@
         "url": "https://github.com/wenps/auto-i18n-translation-plugins/issues"
     },
     "homepage": "https://github.com/wenps/auto-i18n-translation-plugins#readme",
-    "release-it": {
-        "git": false
-    },
     "dependencies": {
         "@babel/core": "^7.26.0",
         "@rollup/plugin-babel": "^6.0.4",
