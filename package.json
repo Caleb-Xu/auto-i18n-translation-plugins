@@ -16,6 +16,7 @@
     },
     "description": "Web automatic translation, supports custom translators, default support for Youdao Translation and Google Translate, compatible with webpack, vite, rollup and other build and development tools, allowing you to translate with just one click.",
     "devDependencies": {
+        "@changesets/cli": "^2.29.2",
         "@inquirer/prompts": "^4.1.0",
         "@types/node": "^20.3.3",
         "@types/shelljs": "^0.8.15",
