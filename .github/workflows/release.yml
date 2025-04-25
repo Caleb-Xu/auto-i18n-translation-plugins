@@ -1,0 +1,42 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - main
+            - beta
+    workflow_dispatch:
+env:
+    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+jobs:
+    main:
+        # TODO: 联动changesets
+        if: contains(github.event.head_commit.message, 'update version')
+        runs-on: ubuntu-latest
+        steps:
+            - name: 检出分支
+              uses: actions/checkout@v3
+            - name: 配置node环境
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20.19.1
+            - name: 打包项目
+              run: |
+                  npm i -g pnpm
+                  pnpm i
+                  pnpm build p=all
+                  echo "NPM_TOKEN: ${{ env.NPM_TOKEN }}"
+            - name: 发布到NPM
+              run: |
+                  pnpm changeset publish
+            - name: 创建Release
+              uses: actions/create-release@v1
+              with:
+                  tag_name: ${{ steps.create_tag.outputs.TAG_NAME }}
+                  release_name: ${{ steps.create_tag.outputs.TAG_NAME }}
+                  body: 'This is an automated release.'
+                  draft: false
+                  prerelease: false
